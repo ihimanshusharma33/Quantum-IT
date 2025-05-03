@@ -17,6 +17,13 @@ exports.registerUser = async (req, res) => {
   try {
     const { name, dateOfBirth, email, password } = req.body;
 
+    if(!name || !dateOfBirth || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide all required fields'
+      });
+    }
+
     // Check if user exists
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -67,7 +74,12 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    if(!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide email and password'
+      });
+    }
     // Check for user email
     const user = await User.findOne({ email });
     

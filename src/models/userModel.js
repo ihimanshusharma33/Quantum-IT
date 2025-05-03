@@ -1,6 +1,25 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+// First, let's try to drop the old index
+// This is a collection-level operation, so we'll use the connection directly
+mongoose.connection.on('connected', async () => {
+  try {
+    // Once connected, try to drop the problematic index
+    const collections = await mongoose.connection.db.collections();
+    const userCollection = collections.find(c => c.collectionName === 'users');
+    
+    if (userCollection) {
+      await userCollection.dropIndex('username_1').catch(err => {
+        // It's okay if the index doesn't exist
+        console.log('Note: username index may not exist or was already dropped');
+      });
+    }
+  } catch (err) {
+    console.log('Note: Could not check/drop indexes, but will continue:', err.message);
+  }
+});
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
