@@ -107,8 +107,11 @@ Authorization: Bearer YOUR_JWT_TOKEN
   "users": [
     {
       "_id": "67c87032777bfbc18ee64413",
-      "username": "Himanshu Sharma",
+      "name": "Himanshu Sharma",
       "email": "Hs991009@gmail.com",
+      "dateOfBirth": "2002-09-07T18:30:00.000Z",
+      "createdAt": "2025-05-01T14:39:32.333Z", 
+      "updatedAt": "2025-05-01T14:39:32.333Z",
       "__v": 0
     },
     {
